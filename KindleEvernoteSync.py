@@ -1,7 +1,6 @@
 import os
 import time
 
-
 document = open("My Clippings.txt","r") 
  
 data = "".join(document.readlines())
@@ -43,10 +42,3 @@ def MakeEvernoteNote(note):
 for note in notes:
     time.sleep(1)
     MakeEvernoteNote(note)
-    
-
-
-
-#somehow get this into evernote by email directly? Or just working with a webapi for emailing? Can I use appspot for this?
-
-#also import it with a certain tag if that is possible, or maybe a saved search?
