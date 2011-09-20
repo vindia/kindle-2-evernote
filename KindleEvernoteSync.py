@@ -24,18 +24,23 @@ except:
 
 def MakeEvernoteNote(note):
     cmd = '''
-    osascript<<END 
-        tell application "Evernote" 
-        set clip to create note title "
-        '''+ unicode(note['title'], errors="ignore") + '''
-        " with text "
-        '''+ unicode(note['text'], errors="ignore") + "\n" + unicode(note['location'], errors="ignore") + unicode(note['date'], errors="ignore") + '''
-        " 
-        if (not (tag named "Kindle" exists)) then 
-            make tag with properties {name:"Kindle"} 
-        end if 
-        assign tag "Kindle" to clip 
-    end tell 
+    osascript<<END
+        tell application "Evernote"
+            set note_title to "'''+ unicode(note['title'], errors="ignore") + '''"
+            set note_contents to "''' + unicode(note['location'], errors="ignore") + unicode(note['date'], errors="ignore") + "\n" + unicode(note['text'], errors="ignore") + "\n" '''"
+            set found_notes to find notes note_title
+            set num_notes_found to count found_notes
+            if num_notes_found is greater than 0 then
+                set this_note to item 1 in found_notes
+                tell this_note to append text note_contents
+            else
+                set clip to create note title note_title with text note_contents
+                if (not (tag named "kindle-note" exists)) then
+                    make tag with properties {name:"kindle-note"}
+                end if
+                assign tag "kindle-note" to clip
+            end if
+        end tell 
     END'''
 
     os.system(cmd)
