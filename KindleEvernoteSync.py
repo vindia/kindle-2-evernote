@@ -1,7 +1,8 @@
 import os
 import time
 
-document = open("My Clippings.txt","r") 
+username = "YOUR_USER_NAME"
+document = open("/Users/"+username+"/Dropbox/kindle-clippings.txt","r") 
  
 data = "".join(document.readlines())
 notes = []
