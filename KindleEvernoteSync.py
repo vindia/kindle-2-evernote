@@ -29,8 +29,9 @@ def MakeEvernoteNote(note):
     cmd = '''
     osascript<<END
         tell application "Evernote"
-            set note_title to "'''+ unicode(note['title'], errors="ignore") + '''"
-            set note_contents to "''' + unicode(note['location'], errors="ignore") + unicode(note['date'], errors="ignore") + "\n" + unicode(note['text'], errors="ignore") + "\n" '''"
+            set note_title to "''' + unicode(note['title'], errors="ignore") + '''"
+            set note_plain_text to "''' + unicode(note['text'].strip(), errors="ignore") + '''"
+            set note_full_contents to "''' + unicode(note['location'], errors="ignore") + unicode(note['date'], errors="ignore") + "\n" + unicode(note['text'], errors="ignore") + "\n" '''"
             set tag_name to "kindle-note"
             set note_search_term to note_title & " tag:" & tag_name
             set found_notes to find notes note_search_term
@@ -38,9 +39,12 @@ def MakeEvernoteNote(note):
 
             if num_notes_found is greater than 0 then
                 set this_note to item 1 in found_notes
-                tell this_note to append text note_contents
+                set this_note_text to (HTML content of item 1 of found_notes)
+                if note_plain_text is not in this_note_text then
+                    tell this_note to append text note_full_contents
+                end if
             else
-                set clip to create note title note_title with text note_contents
+                set clip to create note title note_title with text note_full_contents
                 if (not (tag named tag_name exists)) then
                     make tag with properties {name:tag_name}
                 end if
