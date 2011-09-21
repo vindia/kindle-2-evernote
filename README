@@ -1,0 +1,7 @@
+Kindle to Evernote 
+
+Sync your Kindle clippings to Evernote when you connect your Kindle.
+
+The python script can be used as a stand-alone script or in the attached Automator workflow (OSX only). The advantage of using the workflow is that it will automatically sync your stuff whenever you attach your Kindle to your Mac.
+
+Based upon the gist https://gist.github.com/1071682 by jplattel and this worflow by Evan Sims http://evansims.com/1380/a-perfect-instapaper-sync-for-kindle/
