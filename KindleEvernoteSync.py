@@ -33,7 +33,7 @@ def MakeEvernoteNote(note):
             set note_plain_text to "''' + unicode(note['text'].strip(), errors="ignore") + '''"
             set note_full_contents to "''' + unicode(note['location'], errors="ignore") + unicode(note['date'], errors="ignore") + "\n" + unicode(note['text'], errors="ignore") + "\n" '''"
             set tag_name to "kindle-note"
-            set note_search_term to note_title & " tag:" & tag_name
+            set note_search_term to note_title
             set found_notes to find notes note_search_term
             set num_notes_found to count found_notes
 
